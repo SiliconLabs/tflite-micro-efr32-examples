@@ -1,0 +1,779 @@
+<!DOCTYPE CrossStudio_Project_File>
+<solution Name="tflite_micro_hello_world">
+  <project Name="tflite_micro_hello_world">
+    <configuration
+      Name="Simplicity_Configuration_Content"
+      arm_core_type="Cortex-M4"
+      arm_fp_abi="SoftFP"
+      arm_fpu_type="FPv4-SP-D16"
+      arm_interwork="Yes"
+      arm_use_builtins="No"
+      build_treat_warnings_as_errors="No"
+      c_preprocessor_definitions="CMSIS_NN;EFR32MG12P332F1024GL125;SL_BOARD_NAME=&quot;BRD4166A&quot;;SL_BOARD_REV=&quot;D03&quot;;DEBUG_EFM;SL_COMPONENT_CATALOG_PRESENT;TF_LITE_STATIC_MEMORY;TF_LITE_MCU_DEBUG_LOG"
+      c_user_include_directories="config/;autogen/;./;hello_world/;../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/;../../../gecko_sdk/platform/common/inc/;../../../gecko_sdk/hardware/board/inc/;../../../gecko_sdk/platform/CMSIS/Include/;../../../gecko_sdk/platform/service/device_init/inc/;../../../gecko_sdk/platform/emlib/inc/;../../../gecko_sdk/platform/emlib/host/inc/;../../../gecko_sdk/platform/service/iostream/inc/;../../../gecko_sdk/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_usart/;../../../gecko_sdk/platform/driver/pwm/inc/;../../../gecko_sdk/platform/common/toolchain/inc/;../../../gecko_sdk/platform/service/system/inc/;../../../gecko_sdk/platform/service/sleeptimer/inc/;../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/;../../../gecko_sdk/util/third_party/tensorflow_extra/;../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/include/;../../../gecko_sdk/util/third_party/tensorflow_extra/gemmlowp/;../../../gecko_sdk/util/third_party/tensorflow_extra/ruy/;../../../gecko_sdk/util/third_party/tflite-micro/;../../../gecko_sdk/util/third_party/tensorflow_extra/inc/;../../../gecko_sdk/platform/service/udelay/inc/"
+      cpp_enable_exceptions="No"
+      cpp_enable_rtti="No"
+      gcc_c_language_standard="c99"
+      gcc_cplusplus_language_standard="c++11"
+      gcc_enable_all_warnings="Yes"
+      gcc_omit_frame_pointer="Yes"
+      gcc_optimization_level="Level 3"
+      link_linker_script_file="autogen/linkerfile.ld"
+      link_use_linker_script_file="Yes"
+      linker_additional_system_libraries="stdc++;gcc;c;m;nosys"
+      silicon_labs_metadata="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" />
+    <configuration
+      Name="Default"
+      inherited_configurations="Simplicity_Configuration_Content" />
+    <folder Name="gecko_sdk_4.0.0">
+      <folder Name="platform">
+        <folder Name="service">
+          <folder Name="device_init">
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/service/device_init/inc/sl_device_init_hfxo.h" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/inc/sl_device_init_lfxo.h" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/inc/sl_device_init_emu.h" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/inc/sl_device_init_dcdc.h" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/inc/sl_device_init_nvic.h" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/inc/sl_device_init_clocks.h" />
+            </folder>
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/service/device_init/src/sl_device_init_emu_s1.c" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/src/sl_device_init_hfxo_s1.c" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/src/sl_device_init_nvic.c" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/src/sl_device_init_lfxo_s1.c" />
+              <file file_name="../../../gecko_sdk/platform/service/device_init/src/sl_device_init_dcdc_s1.c" />
+            </folder>
+          </folder>
+          <folder Name="iostream">
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/service/iostream/inc/sli_iostream_uart.h" />
+              <file file_name="../../../gecko_sdk/platform/service/iostream/inc/sl_iostream_usart.h" />
+              <file file_name="../../../gecko_sdk/platform/service/iostream/inc/sl_iostream.h" />
+              <file file_name="../../../gecko_sdk/platform/service/iostream/inc/sl_iostream_uart.h" />
+            </folder>
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/service/iostream/src/sl_iostream_retarget_stdio.c" />
+              <file file_name="../../../gecko_sdk/platform/service/iostream/src/sl_iostream_usart.c" />
+              <file file_name="../../../gecko_sdk/platform/service/iostream/src/sl_iostream_uart.c" />
+              <file file_name="../../../gecko_sdk/platform/service/iostream/src/sl_iostream.c" />
+            </folder>
+          </folder>
+          <folder Name="sleeptimer">
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/service/sleeptimer/src/sl_sleeptimer_hal_rtcc.c" />
+              <file file_name="../../../gecko_sdk/platform/service/sleeptimer/src/sli_sleeptimer_hal.h" />
+              <file file_name="../../../gecko_sdk/platform/service/sleeptimer/src/sl_sleeptimer.c" />
+            </folder>
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/service/sleeptimer/inc/sl_sleeptimer.h" />
+              <file file_name="../../../gecko_sdk/platform/service/sleeptimer/inc/sli_sleeptimer.h" />
+            </folder>
+          </folder>
+          <folder Name="udelay">
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/service/udelay/inc/sl_udelay.h" />
+            </folder>
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/service/udelay/src/sl_udelay_armv6m_gcc.S" />
+              <file file_name="../../../gecko_sdk/platform/service/udelay/src/sl_udelay.c" />
+            </folder>
+          </folder>
+          <folder Name="system">
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/service/system/src/sl_system_process_action.c" />
+              <file file_name="../../../gecko_sdk/platform/service/system/src/sl_system_init.c" />
+            </folder>
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/service/system/inc/sl_system_process_action.h" />
+              <file file_name="../../../gecko_sdk/platform/service/system/inc/sl_system_init.h" />
+            </folder>
+          </folder>
+        </folder>
+        <folder Name="Device">
+          <folder Name="SiliconLabs">
+            <folder Name="EFR32MG12P">
+              <folder Name="Include">
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_pcnt.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_leuart.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p332f1024gl125.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_smu.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_lesense_ch.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_prs.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_gpio.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_prs_ch.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_devinfo.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_gpcrc.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_adc.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_trng.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_ldma.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_timer.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_prs_signals.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_wdog_pch.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_letimer.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/system_efr32mg12p.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_crypto.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_vdac_opa.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_etm.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_romtable.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_lesense.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_timer_cc.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_idac.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_vdac.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_dmareq.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_cmu.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_rtcc_ret.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_lesense_st.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/em_device.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_wdog.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_rtcc.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_dma_descriptor.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_cryotimer.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_csen.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_i2c.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_gpio_p.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_lesense_buf.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_emu.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_fpueh.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_usart.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_af_pins.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_rtcc_cc.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_acmp.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_ldma_ch.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_msc.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_af_ports.h" />
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Include/efr32mg12p_rmu.h" />
+              </folder>
+              <folder Name="Source">
+                <folder Name="GCC">
+                  <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c" />
+                </folder>
+                <file file_name="../../../gecko_sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c" />
+              </folder>
+            </folder>
+          </folder>
+        </folder>
+        <folder Name="CMSIS">
+          <folder Name="Include">
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/core_cm4.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/cmsis_compiler.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/arm_const_structs.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/cmsis_gcc.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/cmsis_version.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/mpu_armv7.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/arm_common_tables.h" />
+            <file file_name="../../../gecko_sdk/platform/CMSIS/Include/arm_math.h" />
+          </folder>
+        </folder>
+        <folder Name="emlib">
+          <folder Name="inc">
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_common.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_core.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_cmu_compat.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_system.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_bus.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_usart.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_version.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_gpio.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_chip.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_ramfunc.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_rtcc.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_assert.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_timer.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_cmu.h" />
+            <file file_name="../../../gecko_sdk/platform/emlib/inc/em_emu.h" />
+          </folder>
+          <folder Name="src">
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_usart.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_rtcc.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_core.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_assert.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_system.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_cmu.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_gpio.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_emu.c" />
+            <file file_name="../../../gecko_sdk/platform/emlib/src/em_timer.c" />
+          </folder>
+        </folder>
+        <folder Name="driver">
+          <folder Name="pwm">
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/driver/pwm/inc/sl_pwm.h" />
+            </folder>
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/driver/pwm/src/sl_pwm.c" />
+            </folder>
+          </folder>
+        </folder>
+        <folder Name="common">
+          <folder Name="toolchain">
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/platform/common/toolchain/src/sl_memory.c" />
+            </folder>
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/platform/common/toolchain/inc/sl_gcc_preinclude.h" />
+              <file file_name="../../../gecko_sdk/platform/common/toolchain/inc/sl_memory_region.h" />
+              <file file_name="../../../gecko_sdk/platform/common/toolchain/inc/sl_memory.h" />
+            </folder>
+          </folder>
+          <folder Name="inc">
+            <file file_name="../../../gecko_sdk/platform/common/inc/sl_enum.h" />
+            <file file_name="../../../gecko_sdk/platform/common/inc/sl_atomic.h" />
+            <file file_name="../../../gecko_sdk/platform/common/inc/sl_status.h" />
+          </folder>
+        </folder>
+      </folder>
+      <folder Name="util">
+        <folder Name="third_party">
+          <folder Name="tensorflow_extra">
+            <folder Name="cmsis">
+              <folder Name="CMSIS">
+                <folder Name="NN">
+                  <folder Name="Source">
+                    <folder Name="ConvolutionFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_fast_s16.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8_opt.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_u8_basic_ver1.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_3x3_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_wrapper_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_wrapper_s16.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s16.c" />
+                    </folder>
+                    <folder Name="NNSupportFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nntables.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_core_1x_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_svdf_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_kernel_s16.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mul_core_4x_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c" />
+                    </folder>
+                    <folder Name="BasicMathFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.c" />
+                    </folder>
+                    <folder Name="PoolingFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.c" />
+                    </folder>
+                    <folder Name="SoftmaxFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.c" />
+                    </folder>
+                    <folder Name="ActivationFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.c" />
+                    </folder>
+                    <folder Name="FullyConnectedFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s16.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s8.c" />
+                    </folder>
+                    <folder Name="ConcatenationFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_x.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_w.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_z.c" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConcatenationFunctions/arm_concatenation_s8_y.c" />
+                    </folder>
+                    <folder Name="ReshapeFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.c" />
+                    </folder>
+                    <folder Name="SVDFunctions">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.c" />
+                    </folder>
+                  </folder>
+                  <folder Name="Include">
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Include/arm_nn_tables.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Include/arm_nn_math_types.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Include/arm_nnsupportfunctions.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Include/arm_nnfunctions.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Include/arm_nn_types.h" />
+                  </folder>
+                </folder>
+                <folder Name="DSP">
+                  <folder Name="Include">
+                    <folder Name="dsp">
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/statistics_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/interpolation_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/support_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/controller_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/bayes_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/svm_defines.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/complex_math_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/bayes_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/none.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/basic_math_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/interpolation_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/controller_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/filtering_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/support_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/statistics_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/matrix_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/quaternion_math_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/svm_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/transform_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/utils.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/basic_math_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/distance_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/transform_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/filtering_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/matrix_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/complex_math_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/fast_math_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/distance_functions.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/svm_functions_f16.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/dsp/fast_math_functions_f16.h" />
+                    </folder>
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_mve_tables_f16.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_math_memory.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_math_f16.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_vec_math.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_const_structs_f16.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_math_types.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_mve_tables.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_const_structs.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_vec_math_f16.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_common_tables.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_math_types_f16.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_common_tables_f16.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_helium_utils.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/DSP/Include/arm_math.h" />
+                  </folder>
+                </folder>
+              </folder>
+            </folder>
+            <folder Name="gemmlowp">
+              <folder Name="fixedpoint">
+                <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/gemmlowp/fixedpoint/fixedpoint_neon.h" />
+                <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/gemmlowp/fixedpoint/fixedpoint.h" />
+                <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/gemmlowp/fixedpoint/fixedpoint_sse.h" />
+              </folder>
+              <folder Name="internal">
+                <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/gemmlowp/internal/detect_platform.h" />
+              </folder>
+            </folder>
+            <folder Name="src">
+              <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/src/sl_tflite_micro_init.cc" />
+            </folder>
+            <folder Name="ruy">
+              <folder Name="ruy">
+                <folder Name="profiler">
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.h" />
+                </folder>
+              </folder>
+            </folder>
+            <folder Name="flatbuffers">
+              <folder Name="include">
+                <folder Name="flatbuffers">
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/include/flatbuffers/stl_emulation.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/include/flatbuffers/flatbuffers.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/include/flatbuffers/util.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/include/flatbuffers/base.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/include/flatbuffers/flexbuffers.h" />
+                </folder>
+              </folder>
+              <folder Name="src">
+                <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/flatbuffers/src/util.cpp" />
+              </folder>
+            </folder>
+            <folder Name="inc">
+              <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/inc/sl_tflite_micro_init.h" />
+            </folder>
+            <folder Name="siliconlabs">
+              <file file_name="../../../gecko_sdk/util/third_party/tensorflow_extra/siliconlabs/debug_log.cc" />
+            </folder>
+          </folder>
+          <folder Name="tflite-micro">
+            <folder Name="tensorflow">
+              <folder Name="lite">
+                <folder Name="micro">
+                  <folder Name="memory_planner">
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/non_persistent_buffer_planner_shim.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/memory_plan_struct.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/micro_memory_planner.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/greedy_memory_planner.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/non_persistent_buffer_planner_shim.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/linear_memory_planner.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/greedy_memory_planner.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/linear_memory_planner.cc" />
+                  </folder>
+                  <folder Name="kernels">
+                    <folder Name="cmsis_nn">
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/fully_connected.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/pooling.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/svdf.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/add.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/mul.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/conv.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/depthwise_conv.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/softmax.cc" />
+                    </folder>
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/resize_bilinear.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/floor.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/elementwise.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/quantize_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/tanh.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/pad.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/ethosu.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/fully_connected.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/pack.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/resize_nearest_neighbor.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/add.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/kernel_util.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/add_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/concatenation.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/log_softmax.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logical.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/arg_min_max.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/pooling.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/svdf_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/sub_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/hard_swish.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/gather_nd.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/dequantize.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/quantize.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/activations.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/fully_connected_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/transpose_conv.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/space_to_batch_nd.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/leaky_relu_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/prelu.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/conv.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/softmax.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/zeros_like.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/l2_pool_2d.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/call_once.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/if.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/slice.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cumsum.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/activations_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/read_variable.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/add_n.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/ceil.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/prelu_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logical.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/activation_utils.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/svdf.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/comparisons.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_ops.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cast.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/sub.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/sub.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unpack.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/shape.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/reduce.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/ethosu.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/pooling_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/prelu.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/floor_mod.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/depthwise_conv_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logical_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/l2norm.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/transpose.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/hard_swish.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/batch_to_space_nd.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/reshape.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/neg.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/dequantize_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_utils.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/leaky_relu.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/expand_dims.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/floor_div.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/hard_swish_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/depth_to_space.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logistic.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/depthwise_conv.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/softmax_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/dequantize.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logistic.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/var_handle.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/conv_test.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/assign_variable.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mul_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/space_to_depth.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/gather.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logistic_common.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/kernel_runner.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/round.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/leaky_relu.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mul.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/strided_slice.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/split.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/split_v.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/fill.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/kernel_util.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/activations.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/squeeze.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/kernel_runner.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/exp.cc" />
+                  </folder>
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_graph.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/flatbuffer_utils.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_micro_allocator.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_interpreter.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/all_ops_resolver.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/test_helpers.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_error_reporter.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/mock_micro_graph.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_graph.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_op_resolver.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_micro_interpreter.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_profiler.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_resource_variable.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/compatibility.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_helpers.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_resource_variable.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_error_reporter.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_string.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/debug_log.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/flatbuffer_utils.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_helpers.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_mutable_op_resolver.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_interpreter.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_micro_allocator.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_profiler.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_utils.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/mock_micro_graph.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/all_ops_resolver.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/test_helpers.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_string.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_utils.cc" />
+                </folder>
+                <folder Name="kernels">
+                  <folder Name="internal">
+                    <folder Name="reference">
+                      <folder Name="integer_ops">
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/add.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/transpose_conv.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/fully_connected.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/mean.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/pooling.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/depthwise_conv.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/l2normalization.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/tanh.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/mul.h" />
+                        <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/integer_ops/logistic.h" />
+                      </folder>
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/slice.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/resize_nearest_neighbor.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/add_n.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/hard_swish.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/depth_to_space.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/prelu.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/batch_matmul.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/floor_div.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/transpose.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/concatenation.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/comparisons.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/reduce.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/arg_min_max.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/floor_mod.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/portable_tensor_utils.cc" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/pad.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/conv.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/depthwiseconv_float.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/ceil.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/transpose_conv.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/leaky_relu.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/add.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/maximum_minimum.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/resize_bilinear.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/exp.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/strided_slice.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/binary_function.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/space_to_depth.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/process_broadcast_shapes.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/cumsum.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/sub.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/pooling.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/depthwiseconv_uint8.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/quantize.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/neg.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/floor.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/l2normalization.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/fill.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/requantize.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/round.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/batch_to_space_nd.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/log_softmax.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/logistic.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/dequantize.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/fully_connected.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/portable_tensor_utils_impl.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/tanh.h" />
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/reference/space_to_batch_nd.h" />
+                    </folder>
+                    <folder Name="optimized">
+                      <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/optimized/neon_check.h" />
+                    </folder>
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/cppmath.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/portable_tensor_utils.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/strided_slice_logic.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/max.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/types.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/common.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/tensor_ctypes.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/quantization_util.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/compatibility.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/portable_tensor.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/quantization_util.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/min.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/internal/runtime_shape.h" />
+                  </folder>
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/kernel_util.cc" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/kernel_util.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/op_macros.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/kernels/padding.h" />
+                </folder>
+                <folder Name="core">
+                  <folder Name="api">
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/tensor_utils.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/op_resolver.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/flatbuffer_conversions.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/tensor_utils.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/error_reporter.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/op_resolver.cc" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/flatbuffer_conversions.h" />
+                    <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/error_reporter.cc" />
+                  </folder>
+                </folder>
+                <folder Name="schema">
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/schema/schema_generated.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/schema/schema_utils.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/schema/schema_utils.cc" />
+                </folder>
+                <folder Name="c">
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/c/builtin_op_data.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/c/c_api_types.h" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.c" />
+                  <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.h" />
+                </folder>
+                <file file_name="../../../gecko_sdk/util/third_party/tflite-micro/tensorflow/lite/portable_type_to_tflitetype.h" />
+              </folder>
+            </folder>
+          </folder>
+        </folder>
+      </folder>
+      <folder Name="hardware">
+        <folder Name="board">
+          <folder Name="src">
+            <file file_name="../../../gecko_sdk/hardware/board/src/sl_board_init.c" />
+            <file file_name="../../../gecko_sdk/hardware/board/src/sl_board_control_gpio.c" />
+          </folder>
+          <folder Name="inc">
+            <file file_name="../../../gecko_sdk/hardware/board/inc/sl_board_control.h" />
+            <file file_name="../../../gecko_sdk/hardware/board/inc/sl_board_init.h" />
+          </folder>
+        </folder>
+        <folder Name="driver">
+          <folder Name="mx25_flash_shutdown">
+            <folder Name="src">
+              <folder Name="sl_mx25_flash_shutdown_usart">
+                <file file_name="../../../gecko_sdk/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown_usart/sl_mx25_flash_shutdown.c" />
+              </folder>
+            </folder>
+            <folder Name="inc">
+              <folder Name="sl_mx25_flash_shutdown_usart">
+                <file file_name="../../../gecko_sdk/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_usart/sl_mx25_flash_shutdown.h" />
+              </folder>
+            </folder>
+          </folder>
+        </folder>
+      </folder>
+    </folder>
+    <folder Name="autogen">
+      <file file_name="autogen/sl_iostream_init_usart_instances.c" />
+      <file file_name="autogen/sl_iostream_init_instances.h" />
+      <file file_name="autogen/sl_iostream_init_usart_instances.h" />
+      <file file_name="autogen/sl_pwm_init.c" />
+      <file file_name="autogen/.crc_config.crc" />
+      <file file_name="autogen/sl_iostream_handles.h" />
+      <file file_name="autogen/sl_event_handler.h" />
+      <file file_name="autogen/sl_iostream_handles.c" />
+      <file file_name="autogen/sl_component_catalog.h" />
+      <file file_name="autogen/RTE_Components.h" />
+      <file file_name="autogen/sl_device_init_clocks.c" />
+      <file file_name="autogen/sl_event_handler.c" />
+      <file file_name="autogen/sl_pwm_instances.h" />
+      <file file_name="autogen/linkerfile.ld" />
+      <file file_name="autogen/sl_board_default_init.c" />
+    </folder>
+    <folder Name="config">
+      <file file_name="config/sl_device_init_dcdc_config.h" />
+      <file file_name="config/emlib_core_debug_config.h" />
+      <file file_name="config/sl_device_init_hfxo_config.h" />
+      <file file_name="config/sl_board_control_config.h" />
+      <file file_name="config/sl_mx25_flash_shutdown_usart_config.h" />
+      <file file_name="config/sl_device_init_emu_config.h" />
+      <file file_name="config/sl_device_init_lfxo_config.h" />
+      <file file_name="config/sl_tflite_micro_config.h" />
+      <file file_name="config/sl_memory_config.h" />
+      <file file_name="config/sl_pwm_init_led0_config.h" />
+      <file file_name="config/sl_sleeptimer_config.h" />
+      <file file_name="config/sl_iostream_usart_vcom_config.h" />
+    </folder>
+    <folder Name="hello_world">
+      <file file_name="hello_world/main_functions.h" />
+      <file file_name="hello_world/hello_world.tflite" />
+      <file file_name="hello_world/output_handler.h" />
+      <file file_name="hello_world/constants.h" />
+      <file file_name="hello_world/constants.cc" />
+      <file file_name="hello_world/hello_world_model_data.cc" />
+      <file file_name="hello_world/sl_output_handler.cc" />
+      <file file_name="hello_world/hello_world_model_data.h" />
+      <file file_name="hello_world/main_functions.cc" />
+    </folder>
+    <file file_name="tflite_micro_hello_world.c" />
+    <file file_name="main.c" />
+    <file file_name="readme.html" />
+    <file file_name="app.h" />
+    <file file_name="app.c" />
+    <file file_name="tflite_micro_hello_world.h" />
+  </project>
+  <configuration
+    Name="Default"
+    inherited_configurations="Simplicity_Configuration_Content" />
+  <configuration
+    BUILD_OPTIONS="ARM GNU"
+    Name="Simplicity_Configuration_Content"
+    arm_architecture="ARM"
+    arm_core_type="Cortex-M4"
+    arm_endian="Little"
+    arm_fpu_type="VFPv4-D32"
+    arm_target_device_name="efr32mg12p332f1024gl125"
+    arm_target_interface_type="SWD"
+    build_generic_options_file_name="$(StudioDir)/targets/ARMGNU_build_options.xml"
+    debug_start_from_entry_point_symbol="No"
+    debug_target_connection="J-Link"
+    use_compiler_driver="No" />
+</solution>

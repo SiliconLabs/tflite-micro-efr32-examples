@@ -1,0 +1,59 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: tflite_micro_hello_world
+label: TensorFlow Lite Micro - Hello World
+description: "This application demonstrates a model trained to replicate a sine function.\
+  \  The model is continuously fed with values ranging from 0 to 2pi, and the  output\
+  \ of the model is used to control the intensity of an LED. \n"
+category: Example|Platform
+package: platform
+quality: production
+readme:
+- {path: ../../../../super/app/common/example/tflite_micro_hello_world/readme.html}
+source:
+- {path: main.c}
+- {path: app.c}
+- {path: tflite_micro_hello_world.c}
+- {path: hello_world/sl_output_handler.cc, folder: hello_world}
+- {path: hello_world/constants.cc, folder: hello_world}
+- {path: hello_world/main_functions.cc, folder: hello_world}
+- {path: hello_world/hello_world_model_data.cc, folder: hello_world}
+tag: ['hardware:device:ram:16', 'hardware:device:flash:160', 'hardware:component:led:1+']
+include:
+- path: ''
+  file_list:
+  - {path: app.h}
+  - {path: tflite_micro_hello_world.h}
+- path: hello_world
+  file_list:
+  - {path: constants.h, folder: hello_world}
+  - {path: main_functions.h, folder: hello_world}
+  - {path: hello_world_model_data.h, folder: hello_world}
+  - {path: output_handler.h, folder: hello_world}
+sdk: {id: gecko_sdk, version: 4.0.0}
+toolchain_settings:
+- {value: -Wno-unused-parameter, option: gcc_compiler_option}
+- {value: -u _printf_float, option: gcc_linker_option}
+component:
+- {id: iostream_retarget_stdio}
+- {id: sl_system}
+- {id: brd4166a}
+- {id: iostream_recommended_stream}
+- instance: [led0]
+  id: pwm
+- {id: tensorflow_lite_micro}
+- {id: device_init}
+- {id: sleeptimer}
+other_file:
+- {path: hello_world/hello_world.tflite, folder: hello_world}
+define:
+- {name: DEBUG_EFM}
+- {name: TF_LITE_STATIC_MEMORY}
+configuration:
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+- {name: SL_IOSTREAM_USART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF, value: '1'}
+- {name: SL_IOSTREAM_UART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF, value: '1'}
+- {name: SL_IOSTREAM_EUSART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF, value: '1'}
+ui_hints:
+  highlight:
+  - {path: readme.html, focus: true}
+

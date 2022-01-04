@@ -1,0 +1,70 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: tflite_micro_micro_speech
+label: TensorFlow Lite Micro - Micro Speech
+description: |
+  This application demonstrates a model trained to recognise the words "yes" and "no" from speech data recorded from the microphone. The detected keywords are transmitted over VCOM.
+category: Example|Platform
+package: platform
+quality: production
+readme:
+- {path: ../../../../super/app/common/example/tflite_micro_micro_speech/readme.html}
+source:
+- {path: main.c}
+- {path: app.c}
+- {path: tflite_micro_micro_speech.c}
+- {path: micro_speech/sl_audio_provider.cc, folder: micro_speech}
+- {path: micro_speech/sl_command_responder.cc, folder: micro_speech}
+- {path: micro_speech/micro_features/micro_features_generator.cc, folder: micro_speech/micro_features}
+- {path: micro_speech/micro_features/micro_model_settings.cc, folder: micro_speech/micro_features}
+- {path: micro_speech/micro_speech_model_data.cc, folder: micro_speech}
+- {path: micro_speech/feature_provider.cc, folder: micro_speech}
+- {path: micro_speech/main_functions.cc, folder: micro_speech}
+- {path: micro_speech/recognize_commands.cc, folder: micro_speech}
+tag: ['hardware:device:flash:100', 'hardware:device:ram:40', 'hardware:component:microphone',
+  'hardware:component:led:1+']
+include:
+- path: ''
+  file_list:
+  - {path: app.h}
+  - {path: tflite_micro_micro_speech.h}
+- path: micro_speech
+  file_list:
+  - {path: audio_provider.h, folder: micro_speech}
+  - {path: feature_provider.h, folder: micro_speech}
+  - {path: command_responder.h, folder: micro_speech}
+  - {path: main_functions.h, folder: micro_speech}
+  - {path: recognize_commands.h, folder: micro_speech}
+  - {path: micro_features/micro_features_generator.h, folder: micro_speech/micro_features}
+  - {path: micro_features/micro_model_settings.h, folder: micro_speech/micro_features}
+  - {path: micro_speech_model_data.h, folder: micro_speech}
+sdk: {id: gecko_sdk, version: 4.0.0}
+toolchain_settings:
+- {value: -Wno-unused-parameter, option: gcc_compiler_option}
+component:
+- {id: tensorflow_lite_audio_frontend}
+- {id: sl_system}
+- {id: brd4166a}
+- {id: iostream_recommended_stream}
+- instance: [led0]
+  id: simple_led
+- {id: tensorflow_lite_micro}
+- {id: mic_driver}
+- {id: device_init}
+other_file:
+- {path: micro_speech/micro_features/micro_speech.tflite, folder: micro_speech/micro_features}
+define:
+- {name: DEBUG_EFM}
+- {name: TF_LITE_STATIC_MEMORY}
+configuration:
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+- condition: [iostream_usart]
+  name: SL_IOSTREAM_USART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
+  value: '1'
+- condition: [iostream_uart]
+  name: SL_IOSTREAM_UART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
+  value: '1'
+- {name: SL_HEAP_SIZE, value: '0x3000'}
+ui_hints:
+  highlight:
+  - {path: readme.html, focus: true}
+

@@ -1,0 +1,4 @@
+[submodule "gecko_sdk"]
+	path = gecko_sdk
+	url = https://github.com/SiliconLabs/gecko_sdk
+	branch = gsdk_4.0
