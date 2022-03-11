@@ -1,14 +1,14 @@
 # Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
 project_name: tflite_micro_magic_wand
-label: TensorFlow Lite Micro - Magic Wand
+label: Machine Learning - TensorFlow Lite Micro - Magic Wand
 description: "This application demonstrates a model trained to recognize various hand\
   \ gestures with an accelerometer. The detected gestures are printed to the serial\
   \ port. \n"
-category: Example|Platform
+category: Example|Machine Learning
 package: platform
 quality: production
 readme:
-- {path: ../../../../super/app/common/example/tflite_micro_magic_wand/readme.html}
+- {path: ../../../gecko_sdk/app/common/example/tflite_micro_magic_wand/readme.md}
 source:
 - {path: main.c}
 - {path: app.c}
@@ -33,7 +33,7 @@ include:
   - {path: output_handler.h, folder: magic_wand}
   - {path: ring_micro_features_data.h, folder: magic_wand}
   - {path: slope_micro_features_data.h, folder: magic_wand}
-sdk: {id: gecko_sdk, version: 4.0.0}
+sdk: {id: gecko_sdk, version: 4.0.2}
 toolchain_settings:
 - {value: -Wno-unused-parameter, option: gcc_compiler_option}
 component:
@@ -53,7 +53,7 @@ define:
 - {name: DEBUG_EFM}
 - {name: TF_LITE_STATIC_MEMORY}
 config_file:
-- {path: ../../../../super/app/common/example/tflite_micro_magic_wand/config/tflite/magic_wand_model.tflite,
+- {path: ../../../gecko_sdk/app/common/example/tflite_micro_magic_wand/config/tflite/magic_wand_model.tflite,
   directory: tflite}
 configuration:
 - {name: SL_BOARD_ENABLE_VCOM, value: '1'}
@@ -65,7 +65,8 @@ configuration:
   name: SL_IOSTREAM_UART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
   value: '1'
 - {name: SL_HEAP_SIZE, value: '0x3000'}
+- {name: SL_TFLITE_MICRO_INTERPRETER_INIT_ENABLE, value: '0'}
 ui_hints:
   highlight:
-  - {path: readme.html, focus: true}
+  - {path: readme.md, focus: true}
 

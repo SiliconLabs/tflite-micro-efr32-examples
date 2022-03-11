@@ -8,16 +8,11 @@
 #include "sl_device_init_lfxo.h"
 #include "sl_device_init_clocks.h"
 #include "sl_device_init_emu.h"
-#include "sl_iostream_init_instances.h"
 #include "sl_board_control.h"
 #include "sl_iostream_init_usart_instances.h"
 #include "sl_simple_led_instances.h"
 #include "sl_tflite_micro_init.h"
-
-void sl_iostream_init_instances(void)
-{
-  sl_iostream_usart_init_instances();
-}
+#include "sl_iostream_init_instances.h"
 
 void sl_platform_init(void)
 {
@@ -39,8 +34,8 @@ void sl_driver_init(void)
 
 void sl_service_init(void)
 {
-  sl_iostream_init_instances();
   sl_board_configure_vcom();
+  sl_iostream_init_instances();
 }
 
 void sl_stack_init(void)
@@ -66,5 +61,10 @@ void sl_stack_process_action(void)
 
 void sl_internal_app_process_action(void)
 {
+}
+
+void sl_iostream_init_instances(void)
+{
+  sl_iostream_usart_init_instances();
 }
 

@@ -1,13 +1,13 @@
 # Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
 project_name: tflite_micro_micro_speech
-label: TensorFlow Lite Micro - Micro Speech
+label: Machine Learning - TensorFlow Lite Micro - Micro Speech
 description: |
   This application demonstrates a model trained to recognise the words "yes" and "no" from speech data recorded from the microphone. The detected keywords are transmitted over VCOM.
-category: Example|Platform
+category: Example|Machine Learning
 package: platform
 quality: production
 readme:
-- {path: ../../../../super/app/common/example/tflite_micro_micro_speech/readme.html}
+- {path: ../../../gecko_sdk/app/common/example/tflite_micro_micro_speech/readme.md}
 source:
 - {path: main.c}
 - {path: app.c}
@@ -37,7 +37,7 @@ include:
   - {path: micro_features/micro_features_generator.h, folder: micro_speech/micro_features}
   - {path: micro_features/micro_model_settings.h, folder: micro_speech/micro_features}
   - {path: micro_speech_model_data.h, folder: micro_speech}
-sdk: {id: gecko_sdk, version: 4.0.0}
+sdk: {id: gecko_sdk, version: 4.0.2}
 toolchain_settings:
 - {value: -Wno-unused-parameter, option: gcc_compiler_option}
 component:
@@ -66,5 +66,5 @@ configuration:
 - {name: SL_HEAP_SIZE, value: '0x3000'}
 ui_hints:
   highlight:
-  - {path: readme.html, focus: true}
+  - {path: readme.md, focus: true}
 

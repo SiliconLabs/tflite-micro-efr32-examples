@@ -40,7 +40,7 @@ To flash a precompiled binary to the device, first navigate to the example you w
 
 ## Building from the command line
 
-If you want to modify the source code, you have to build the examples. To do this, navigate to the folder that contains the example you want to build for your kit (e.g. ```examples/micro_speech/thunderboard_sense_2/```) and build the example by running the following command. Replace ```<path_to_gcc>``` to the location where the GNU Arm Embedded Toolchain is installed.
+If you want to modify the source code, you have to build the examples. To do this, navigate to the folder that contains the example you want to build for your kit (e.g. ```examples/thunderboard_sense_2/micro_speech```) and build the example by running the following command. Replace ```<path_to_gcc>``` to the location where the GNU Arm Embedded Toolchain is installed.
 ```
 make -f tflite_micro_micro_speech.Makefile ARM_GCC_DIR=<path_to_gcc>
 ```
