@@ -1,0 +1,72 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: tflite_micro_magic_wand
+label: Machine Learning - TensorFlow Lite Micro - Magic Wand
+description: "This application demonstrates a model trained to recognize various hand\
+  \ gestures with an accelerometer. The detected gestures are printed to the serial\
+  \ port. \n"
+category: Example|Machine Learning
+package: platform
+quality: production
+readme:
+- {path: ../../../gecko_sdk/app/common/example/tflite_micro_magic_wand/readme.md}
+source:
+- {path: main.c}
+- {path: app.c}
+- {path: magic_wand/sl_accelerometer_handler.cc, folder: magic_wand}
+- {path: magic_wand/sl_output_handler.cc, folder: magic_wand}
+- {path: magic_wand/sl_main_functions.cc, folder: magic_wand}
+- {path: magic_wand/sl_gesture_predictor.cc, folder: magic_wand}
+- {path: magic_wand/ring_micro_features_data.cc, folder: magic_wand}
+- {path: magic_wand/slope_micro_features_data.cc, folder: magic_wand}
+tag: ['hardware:component:led:2+', 'hardware:device:flash:100', 'hardware:component:imu',
+  'hardware:device:ram:40']
+include:
+- path: ''
+  file_list:
+  - {path: app.h}
+- path: magic_wand
+  file_list:
+  - {path: accelerometer_handler.h, folder: magic_wand}
+  - {path: constants.h, folder: magic_wand}
+  - {path: gesture_predictor.h, folder: magic_wand}
+  - {path: main_functions.h, folder: magic_wand}
+  - {path: output_handler.h, folder: magic_wand}
+  - {path: ring_micro_features_data.h, folder: magic_wand}
+  - {path: slope_micro_features_data.h, folder: magic_wand}
+sdk: {id: gecko_sdk, version: 4.0.2}
+toolchain_settings:
+- {value: -Wno-unused-parameter, option: gcc_compiler_option}
+component:
+- {id: brd2601b}
+- {id: iostream_retarget_stdio}
+- {id: sl_system}
+- {id: iostream_recommended_stream}
+- instance: [led0, led1]
+  id: simple_led
+- {id: tensorflow_lite_micro}
+- {id: component_catalog}
+- {id: device_init}
+- {id: gpiointerrupt}
+- {id: imu_driver}
+- {id: sleeptimer}
+define:
+- {name: DEBUG_EFM}
+- {name: TF_LITE_STATIC_MEMORY}
+config_file:
+- {path: ../../../gecko_sdk/app/common/example/tflite_micro_magic_wand/config/tflite/magic_wand_model.tflite,
+  directory: tflite}
+configuration:
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+- {name: SL_BOARD_ENABLE_SENSOR_IMU, value: '1'}
+- condition: [iostream_usart]
+  name: SL_IOSTREAM_USART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
+  value: '1'
+- condition: [iostream_uart]
+  name: SL_IOSTREAM_UART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF
+  value: '1'
+- {name: SL_HEAP_SIZE, value: '0x3000'}
+- {name: SL_TFLITE_MICRO_INTERPRETER_INIT_ENABLE, value: '0'}
+ui_hints:
+  highlight:
+  - {path: readme.md, focus: true}
+
