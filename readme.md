@@ -2,7 +2,7 @@
 
 TensorFlow Lite for Microcontrollers is a framework designed for running machine learning models on microcontrollers.
 
-This repository contains precompiled TensorFlow Lite for Microcontroller examples that have been ported to run on Silicon Labs devices. The repository also includes the Silicon Labs Gecko SDK (GSDK), which provides a [full integration of the TensorFlow Lite for Microcontrollers](https://docs.silabs.com/gecko-platform/latest/machine_learning/tensorflow/overview) library by including it as a third-party component.
+This repository contains precompiled TensorFlow Lite for Microcontroller examples that have been ported to run on Silicon Labs devices. The repository also includes the Silicon Labs Gecko SDK (GSDK), which provides a [full integration of the TensorFlow Lite for Microcontrollers](https://docs.silabs.com/gecko-platform/latest/machine-learning/tensorflow/overview) library by including it as a third-party component.
 
 The ```examples/``` folder contains examples that have been generated to run on the [Thunderboard Sense 2](https://www.silabs.com/development-tools/thunderboard/thunderboard-sense-two-kit) and the [EFR32xG24 Dev Kit](https://www.silabs.com/development-tools/wireless/efr32xg24-dev-kit). Each example includes a precompiled binary that can be programmed directly onto the kit, together with the example source code. You can find the following examples in this repository:
 
@@ -55,11 +55,11 @@ $ <path_to_commander> flash build/release/tflite_micro_micro_speech.s37
 
 ## Developing machine learning applications with the Silicon Labs Gecko SDK
 
-These examples, along with other machine learning examples, can be found as sample applications in the GSDK. See the [sample applications list](https://docs.silabs.com/gecko-platform/4.0/machine-learning/tensorflow/sample-apps) for a full overview. From the GSDK the sample applications can be generated for any compatible board. The easiest way to get started with [TensorFlow Lite for Microcontrollers in the Gecko SDK](https://docs.silabs.com/gecko-platform/latest/machine_learning/tensorflow/overview) is by installing [Simplicity Studio 5](https://www.silabs.com/developers/simplicity-studio), which will set up your development environment and walk you through the installation of the Gecko SDK.
+These examples, along with other machine learning examples, can be found as sample applications in the GSDK. See the [sample applications list](https://docs.silabs.com/gecko-platform/4.0/machine-learning/tensorflow/sample-apps) for a full overview. From the GSDK the sample applications can be generated for any compatible board. The easiest way to get started with [TensorFlow Lite for Microcontrollers in the Gecko SDK](https://docs.silabs.com/gecko-platform/latest/machine-learning/tensorflow/overview) is by installing [Simplicity Studio 5](https://www.silabs.com/developers/simplicity-studio), which will set up your development environment and walk you through the installation of the Gecko SDK.
 
 ## TensorFlow Lite for Microcontrollers version
 
-The Tensorflow Lite Micro shipped in the Gecko SDK is updated at a regular interval, the current version can be found [here](https://docs.silabs.com/gecko-platform/4.0/machine_learning/tensorflow/overview#version)
+The Tensorflow Lite Micro shipped in the Gecko SDK is updated at a regular interval, the current version can be found [here](https://docs.silabs.com/gecko-platform/4.0/machine-learning/tensorflow/overview#version)
 
 ## License
 
