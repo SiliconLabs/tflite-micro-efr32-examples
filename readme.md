@@ -20,7 +20,7 @@ The ```examples/``` folder contains examples that have been generated to run on 
 If you want to build the examples from source you need to install the build tools to build from the command line
 
 * GNU Make
-* [GNU Arm Embedded Toolchain v10.3-2021.07](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
+* [GNU Arm Embedded Toolchain v10.2 (10-2020-q4-major)](https://developer.arm.com/tools-and-software/open-source-software/developer-tools/gnu-toolchain/gnu-rm/downloads)
 
 ### Download
 

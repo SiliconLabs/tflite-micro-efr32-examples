@@ -5,18 +5,27 @@ description: "This application demonstrates a model trained to replicate a sine 
   \  The model is continuously fed with values ranging from 0 to 2pi, and the  output\
   \ of the model is used to control the intensity of an LED. \n"
 category: Example|Machine Learning
+filter:
+- name: Capability
+  value: [Machine Learning]
+- name: Device Type
+  value: [SoC]
+- name: MCU
+  value: [32-bit MCU]
+- name: Project Difficulty
+  value: [Advanced]
 package: platform
 quality: production
 readme:
-- {path: ../../../gecko_sdk/app/common/example/tflite_micro_hello_world/readme.md}
+- {path: readme.md}
 source:
 - {path: main.c}
 - {path: app.c}
 - {path: tflite_micro_hello_world.c}
-- {path: hello_world/sl_output_handler.cc, folder: hello_world}
-- {path: hello_world/constants.cc, folder: hello_world}
-- {path: hello_world/main_functions.cc, folder: hello_world}
-- {path: hello_world/hello_world_model_data.cc, folder: hello_world}
+- {path: hello_world/sl_output_handler.cc}
+- {path: hello_world/constants.cc}
+- {path: hello_world/main_functions.cc}
+- {path: hello_world/hello_world_model_data.cc}
 tag: ['hardware:device:ram:16', 'hardware:device:flash:160', 'hardware:component:led:1+']
 include:
 - path: ''
@@ -25,13 +34,14 @@ include:
   - {path: tflite_micro_hello_world.h}
 - path: hello_world
   file_list:
-  - {path: constants.h, folder: hello_world}
-  - {path: main_functions.h, folder: hello_world}
-  - {path: hello_world_model_data.h, folder: hello_world}
-  - {path: output_handler.h, folder: hello_world}
-sdk: {id: gecko_sdk, version: 4.0.2}
+  - {path: constants.h}
+  - {path: main_functions.h}
+  - {path: hello_world_model_data.h}
+  - {path: output_handler.h}
+sdk: {id: gecko_sdk, version: 4.1.1}
 toolchain_settings:
 - {value: -Wno-unused-parameter, option: gcc_compiler_option}
+- {value: -Wno-missing-field-initializers, option: gcc_compiler_option}
 - {value: -u _printf_float, option: gcc_linker_option}
 component:
 - {id: brd2601b}
@@ -44,7 +54,7 @@ component:
 - {id: device_init}
 - {id: sleeptimer}
 other_file:
-- {path: hello_world/hello_world.tflite, folder: hello_world}
+- {path: hello_world/hello_world.tflite}
 define:
 - {name: DEBUG_EFM}
 - {name: TF_LITE_STATIC_MEMORY}

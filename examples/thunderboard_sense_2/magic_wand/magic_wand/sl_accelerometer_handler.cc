@@ -16,7 +16,7 @@ This file has been modified by Silicon Labs.
 ==============================================================================*/
 
 #include "magic_wand/accelerometer_handler.h"
-#include "constants.h"
+#include "magic_wand/constants.h"
 #include "sl_imu.h"
 #include "gpiointerrupt.h"
 #include "em_gpio.h"

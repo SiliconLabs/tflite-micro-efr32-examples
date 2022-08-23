@@ -3,7 +3,7 @@
 # This will not be overwritten. Edit as desired.                   #
 ####################################################################
 .SUFFIXES:				# ignore builtin rules
-.PHONY: all debug release clean
+.PHONY: all debug release clean pre-build post-build
 
 # Default goal
 all: debug
@@ -14,19 +14,25 @@ all: debug
 
 # Values set by the initial generation
 PROJECTNAME = tflite_micro_magic_wand
-ARM_GCC_DIR_WIN = C:/Program Files (x86)/GNU Arm Embedded Toolchain/10 2020-q4-major
+ARM_GCC_DIR_WIN = 
 ARM_GCC_DIR_OSX = 
 ARM_GCC_DIR_LINUX = 
+POST_BUILD_EXE_WIN = 
+POST_BUILD_EXE_OSX = 
+POST_BUILD_EXE_LINUX = 
 
 # Pre-defined definitions in this file
 ifeq ($(OS),Windows_NT)
   ARM_GCC_DIR ?= $(ARM_GCC_DIR_WIN)
+	POST_BUILD_EXE ?= $(POST_BUILD_EXE_WIN)
 else
   UNAME_S := $(shell uname -s)
   ifeq ($(UNAME_S),Darwin)
     ARM_GCC_DIR ?= $(ARM_GCC_DIR_OSX)
+		POST_BUILD_EXE ?= $(POST_BUILD_EXE_OSX)
   else
     ARM_GCC_DIR ?= $(ARM_GCC_DIR_LINUX)
+		POST_BUILD_EXE ?= $(POST_BUILD_EXE_LINUX)
   endif
 endif
 
@@ -135,12 +141,12 @@ override ASMFLAGS = $(ASM_FLAGS) $(ASM_DEFS) $(INCLUDES) $(DEPFLAGS)
 debug: C_FLAGS += $(C_FLAGS_DEBUG) 
 debug: CXX_FLAGS += $(CXX_FLAGS_DEBUG)
 debug: ASM_FLAGS += $(ASM_FLAGS_DEBUG)
-debug: $(OUTPUT_DIR)/$(PROJECTNAME).out
+debug: | pre-build $(OUTPUT_DIR)/$(PROJECTNAME).out post-build
 
 release: C_FLAGS += $(C_FLAGS_RELEASE) 
 release: CXX_FLAGS += $(CXX_FLAGS_RELEASE)
 release: ASM_FLAGS += $(ASM_FLAGS_RELEASE)
-release: $(OUTPUT_DIR)/$(PROJECTNAME).out
+release: | pre-build $(OUTPUT_DIR)/$(PROJECTNAME).out post-build
 
 # include auto-generated dependency files (explicit rules)
 ifneq (clean,$(findstring clean, $(MAKECMDGOALS)))

@@ -1,6 +1,6 @@
 ####################################################################
 # Automatically-generated file. Do not edit!                       #
-# Makefile Version 10                                              #
+# Makefile Version 11                                              #
 ####################################################################
 
 BASE_SDK_PATH = ../../../gecko_sdk
@@ -10,7 +10,7 @@ ifeq ($(UNAME),MINGW)
 SDK_PATH := /$(shell echo $(BASE_SDK_PATH) | sed s/://)
 endif
 SDK_PATH ?= $(BASE_SDK_PATH)
-COPIED_SDK_PATH ?= gecko_sdk_4.0.0
+COPIED_SDK_PATH ?= gecko_sdk_4.1.1
 
 # This uses the explicit build rules below
 PROJECT_SOURCE_FILES =
@@ -50,10 +50,11 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Include \
  -I$(SDK_PATH)/platform/common/inc \
  -I$(SDK_PATH)/hardware/board/inc \
- -I$(SDK_PATH)/platform/CMSIS/Include \
+ -I$(SDK_PATH)/platform/CMSIS/Core/Include \
+ -I$(SDK_PATH)/platform/CMSIS/DSP/Include \
+ -I$(SDK_PATH)/platform/CMSIS/DSP/Include/dsp \
  -I$(SDK_PATH)/platform/service/device_init/inc \
  -I$(SDK_PATH)/platform/emlib/inc \
- -I$(SDK_PATH)/platform/emlib/host/inc \
  -I$(SDK_PATH)/platform/service/iostream/inc \
  -I$(SDK_PATH)/hardware/driver/mx25_flash_shutdown/inc/sl_mx25_flash_shutdown_usart \
  -I$(SDK_PATH)/platform/driver/pwm/inc \
@@ -61,7 +62,7 @@ INCLUDES += \
  -I$(SDK_PATH)/platform/service/system/inc \
  -I$(SDK_PATH)/platform/service/sleeptimer/inc \
  -I$(SDK_PATH)/util/third_party/tensorflow_extra/cmsis \
- -I$(SDK_PATH)/util/third_party/tensorflow_extra \
+ -I$(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Include \
  -I$(SDK_PATH)/util/third_party/tensorflow_extra/flatbuffers/include \
  -I$(SDK_PATH)/util/third_party/tensorflow_extra/gemmlowp \
  -I$(SDK_PATH)/util/third_party/tensorflow_extra/ruy \
@@ -77,7 +78,22 @@ PROJECT_LIBS = \
  -lgcc \
  -lc \
  -lm \
- -lnosys
+ -lnosys \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPBasicMath.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPBayes.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPCommon.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPComplexMath.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPController.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPDistance.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPFastMath.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPFiltering.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPInterpolation.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPMatrix.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPQuaternionMath.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPStatistics.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPSupport.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPSVM.a \
+ $(SDK_PATH)/platform/CMSIS/libs/GCC/cortex-m4/libCMSISDSPTransform.a
 
 LIBS += $(GROUP_START) $(PROJECT_LIBS) $(GROUP_END)
 
@@ -95,9 +111,9 @@ C_FLAGS += \
  -fdata-sections \
  -ffunction-sections \
  -fomit-frame-pointer \
- -fno-builtin \
  -imacros sl_gcc_preinclude.h \
  -Wno-unused-parameter \
+ -Wno-missing-field-initializers \
  --specs=nano.specs \
  -g
 
@@ -115,9 +131,9 @@ CXX_FLAGS += \
  -fdata-sections \
  -ffunction-sections \
  -fomit-frame-pointer \
- -fno-builtin \
  -imacros sl_gcc_preinclude.h \
  -Wno-unused-parameter \
+ -Wno-missing-field-initializers \
  --specs=nano.specs \
  -g
 
@@ -140,6 +156,15 @@ LD_FLAGS += \
  -u _printf_float \
  -Wl,--gc-sections
 
+
+####################################################################
+# Pre/Post Build Rules                                             #
+####################################################################
+pre-build:
+	# No pre-build defined
+
+post-build:
+	# No post-build defined
 
 ####################################################################
 # SDK Build Rules                                                  #
@@ -165,6 +190,13 @@ $(OUTPUT_DIR)/sdk/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown
 CDEPS += $(OUTPUT_DIR)/sdk/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown_usart/sl_mx25_flash_shutdown.d
 OBJS += $(OUTPUT_DIR)/sdk/hardware/driver/mx25_flash_shutdown/src/sl_mx25_flash_shutdown_usart/sl_mx25_flash_shutdown.o
 
+$(OUTPUT_DIR)/sdk/platform/common/src/sl_assert.o: $(SDK_PATH)/platform/common/src/sl_assert.c
+	@echo 'Building $(SDK_PATH)/platform/common/src/sl_assert.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/common/src/sl_assert.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_assert.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/common/src/sl_assert.o
+
 $(OUTPUT_DIR)/sdk/platform/common/toolchain/src/sl_memory.o: $(SDK_PATH)/platform/common/toolchain/src/sl_memory.c
 	@echo 'Building $(SDK_PATH)/platform/common/toolchain/src/sl_memory.c'
 	@mkdir -p $(@D)
@@ -172,12 +204,12 @@ $(OUTPUT_DIR)/sdk/platform/common/toolchain/src/sl_memory.o: $(SDK_PATH)/platfor
 CDEPS += $(OUTPUT_DIR)/sdk/platform/common/toolchain/src/sl_memory.d
 OBJS += $(OUTPUT_DIR)/sdk/platform/common/toolchain/src/sl_memory.o
 
-$(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.o: $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c
-	@echo 'Building $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c'
+$(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/startup_efr32mg12p.o: $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/startup_efr32mg12p.c
+	@echo 'Building $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/startup_efr32mg12p.c'
 	@mkdir -p $(@D)
-	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.c
-CDEPS += $(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.d
-OBJS += $(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/GCC/startup_efr32mg12p.o
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/startup_efr32mg12p.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/startup_efr32mg12p.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/startup_efr32mg12p.o
 
 $(OUTPUT_DIR)/sdk/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.o: $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c
 	@echo 'Building $(SDK_PATH)/platform/Device/SiliconLabs/EFR32MG12P/Source/system_efr32mg12p.c'
@@ -192,13 +224,6 @@ $(OUTPUT_DIR)/sdk/platform/driver/pwm/src/sl_pwm.o: $(SDK_PATH)/platform/driver/
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/driver/pwm/src/sl_pwm.c
 CDEPS += $(OUTPUT_DIR)/sdk/platform/driver/pwm/src/sl_pwm.d
 OBJS += $(OUTPUT_DIR)/sdk/platform/driver/pwm/src/sl_pwm.o
-
-$(OUTPUT_DIR)/sdk/platform/emlib/src/em_assert.o: $(SDK_PATH)/platform/emlib/src/em_assert.c
-	@echo 'Building $(SDK_PATH)/platform/emlib/src/em_assert.c'
-	@mkdir -p $(@D)
-	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/emlib/src/em_assert.c
-CDEPS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_assert.d
-OBJS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_assert.o
 
 $(OUTPUT_DIR)/sdk/platform/emlib/src/em_cmu.o: $(SDK_PATH)/platform/emlib/src/em_cmu.c
 	@echo 'Building $(SDK_PATH)/platform/emlib/src/em_cmu.c'
@@ -227,6 +252,13 @@ $(OUTPUT_DIR)/sdk/platform/emlib/src/em_gpio.o: $(SDK_PATH)/platform/emlib/src/e
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/emlib/src/em_gpio.c
 CDEPS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_gpio.d
 OBJS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_gpio.o
+
+$(OUTPUT_DIR)/sdk/platform/emlib/src/em_msc.o: $(SDK_PATH)/platform/emlib/src/em_msc.c
+	@echo 'Building $(SDK_PATH)/platform/emlib/src/em_msc.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/platform/emlib/src/em_msc.c
+CDEPS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_msc.d
+OBJS += $(OUTPUT_DIR)/sdk/platform/emlib/src/em_msc.o
 
 $(OUTPUT_DIR)/sdk/platform/emlib/src/em_rtcc.o: $(SDK_PATH)/platform/emlib/src/em_rtcc.c
 	@echo 'Building $(SDK_PATH)/platform/emlib/src/em_rtcc.c'
@@ -361,12 +393,33 @@ $(OUTPUT_DIR)/sdk/platform/service/udelay/src/sl_udelay_armv6m_gcc.o: $(SDK_PATH
 ASMDEPS_S += $(OUTPUT_DIR)/sdk/platform/service/udelay/src/sl_udelay_armv6m_gcc.d
 OBJS += $(OUTPUT_DIR)/sdk/platform/service/udelay/src/sl_udelay_armv6m_gcc.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_nn_activations_q7.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu6_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q15.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.c'
@@ -375,12 +428,26 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Activa
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ActivationFunctions/arm_relu_q7.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s16.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_add_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s16.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/BasicMathFunctions/arm_elementwise_mul_s8.c'
@@ -424,6 +491,13 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Convol
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1_x_n_s8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_HWC_q7_fast_nonsquare.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_1x1_s8_fast.c'
 	@mkdir -p $(@D)
@@ -437,6 +511,62 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Convol
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_fast_s16.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_fast_s16.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_fast_s16.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_basic.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q15_fast_nonsquare.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic_nonsquare.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic_nonsquare.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic_nonsquare.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic_nonsquare.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic_nonsquare.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_basic_nonsquare.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast_nonsquare.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast_nonsquare.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast_nonsquare.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast_nonsquare.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast_nonsquare.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_fast_nonsquare.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_RGB.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_RGB.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_RGB.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_RGB.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_RGB.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_HWC_q7_RGB.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s16.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_convolve_s16.c'
@@ -473,6 +603,13 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Convol
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_3x3_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_3x3_s8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s16.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_s8.c'
 	@mkdir -p $(@D)
@@ -501,12 +638,40 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Convol
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_conv_wrapper_s8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7_nonsquare.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7_nonsquare.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7_nonsquare.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7_nonsquare.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7_nonsquare.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_depthwise_separable_conv_HWC_q7_nonsquare.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_depthwise_conv_s8_core.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_q7_q15_reordered.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.c'
@@ -515,19 +680,54 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Convol
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16.o
 
-$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.c
-	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.c'
-	@mkdir -p $(@D)
-	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.c
-CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_kernel_s8_s16_reordered.o
-
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ConvolutionFunctions/arm_nn_mat_mult_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15_opt.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15_opt.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15_opt.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15_opt.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15_opt.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_mat_q7_vec_q15_opt.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q15_opt.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_q7_opt.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s16.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s16.c'
@@ -542,6 +742,20 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyC
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/FullyConnectedFunctions/arm_fully_connected_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_accumulate_q7_to_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_add_q7.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_depthwise_conv_nt_t_padded_s8.c'
@@ -585,6 +799,20 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupp
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mat_mult_nt_t_s8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_mult_q7.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nn_vec_mat_mult_t_s16.c'
 	@mkdir -p $(@D)
@@ -613,12 +841,40 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupp
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nntables.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_nntables.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_no_shift.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_no_shift.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_reordered_with_offset.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/NNSupportFunctions/arm_q7_to_q15_with_offset.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s16.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.c'
@@ -627,12 +883,26 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Poolin
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_avgpool_s8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s16.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_max_pool_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/PoolingFunctions/arm_pool_q7_HWC.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.c'
@@ -641,12 +911,47 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Reshap
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/ReshapeFunctions/arm_reshape_s8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_nn_softmax_common_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q15.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_q7.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s16.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_s8_s16.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.c'
@@ -655,26 +960,19 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/Softma
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_u8.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.c
+	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.c'
+	@mkdir -p $(@D)
+	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.c
+CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SoftmaxFunctions/arm_softmax_with_batch_q7.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.o: $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.c
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.c'
 	@mkdir -p $(@D)
 	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.c
 CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/cmsis/CMSIS/NN/Source/SVDFunctions/arm_svdf_s8.o
-
-$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/flatbuffers/src/util.o: $(SDK_PATH)/util/third_party/tensorflow_extra/flatbuffers/src/util.cpp
-	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/flatbuffers/src/util.cpp'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/flatbuffers/src/util.cpp
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/flatbuffers/src/util.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/flatbuffers/src/util.o
-
-$(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.o: $(SDK_PATH)/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.cc
-	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.cc'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.cc
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/ruy/ruy/profiler/instrumentation.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/siliconlabs/debug_log.o: $(SDK_PATH)/util/third_party/tensorflow_extra/siliconlabs/debug_log.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tensorflow_extra/siliconlabs/debug_log.cc'
@@ -690,11 +988,11 @@ $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/src/sl_tflite_micro_init.o: 
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/src/sl_tflite_micro_init.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tensorflow_extra/src/sl_tflite_micro_init.o
 
-$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/c/common.c
-	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/c/common.c'
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/c/common.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/c/common.cc'
 	@mkdir -p $(@D)
-	$(ECHO)$(CC) $(CFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/c/common.c
-CDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.d
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/c/common.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/c/common.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/core/api/error_reporter.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/core/api/error_reporter.cc
@@ -753,6 +1051,34 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/all_ops_re
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/all_ops_resolver.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/all_ops_resolver.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/recording_simple_memory_allocator.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/recording_simple_memory_allocator.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/recording_simple_memory_allocator.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/recording_simple_memory_allocator.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/recording_simple_memory_allocator.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/recording_simple_memory_allocator.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/simple_memory_allocator.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/simple_memory_allocator.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/simple_memory_allocator.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/simple_memory_allocator.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/simple_memory_allocator.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/arena_allocator/simple_memory_allocator.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/cortex_m_generic/micro_time.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/cortex_m_generic/micro_time.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/cortex_m_generic/micro_time.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/cortex_m_generic/micro_time.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/cortex_m_generic/micro_time.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/cortex_m_generic/micro_time.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/fake_micro_context.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/fake_micro_context.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/fake_micro_context.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/fake_micro_context.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/fake_micro_context.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/fake_micro_context.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/flatbuffer_utils.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/flatbuffer_utils.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/flatbuffer_utils.cc'
 	@mkdir -p $(@D)
@@ -809,6 +1135,20 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/ba
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/batch_to_space_nd.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/batch_to_space_nd.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_args.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_args.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_args.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_args.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_args.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_args.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_to.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_to.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_to.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_to.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_to.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/broadcast_to.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/call_once.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/call_once.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/call_once.cc'
 	@mkdir -p $(@D)
@@ -843,13 +1183,6 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/ci
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_common.cc
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_common.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_common.o
-
-$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.cc
-	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.cc'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.cc
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/circular_buffer_flexbuffers_generated_data.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/add.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/add.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/cmsis_nn/add.cc'
@@ -969,13 +1302,6 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/de
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess.cc
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess.o
-
-$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.cc
-	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.cc'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.cc
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/detection_postprocess_flexbuffers_generated_data.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/elementwise.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/elementwise.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/elementwise.cc'
@@ -1159,12 +1485,33 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lo
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logistic_common.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/logistic_common.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lstm_eval.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lstm_eval.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lstm_eval.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lstm_eval.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lstm_eval.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/lstm_eval.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.cc'
 	@mkdir -p $(@D)
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.cc
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/maximum_minimum.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_tensor_utils.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_tensor_utils.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_tensor_utils.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_tensor_utils.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_tensor_utils.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/micro_tensor_utils.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mirror_pad.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mirror_pad.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mirror_pad.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mirror_pad.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mirror_pad.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mirror_pad.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mul_common.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mul_common.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/mul_common.cc'
@@ -1376,6 +1723,13 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/tr
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/transpose_conv.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/transpose_conv.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unidirectional_sequence_lstm.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unpack.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unpack.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/unpack.cc'
 	@mkdir -p $(@D)
@@ -1389,6 +1743,13 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/va
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/var_handle.cc
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/var_handle.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/var_handle.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/while.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/while.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/while.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/while.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/while.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/while.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/zeros_like.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/zeros_like.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/kernels/zeros_like.cc'
@@ -1425,12 +1786,26 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_pla
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/non_persistent_buffer_planner_shim.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/memory_planner/non_persistent_buffer_planner_shim.o
 
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocation_info.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocation_info.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocation_info.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocation_info.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocation_info.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocation_info.o
+
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.cc'
 	@mkdir -p $(@D)
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.cc
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_allocator.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_context.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_context.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_context.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_context.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_context.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_context.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_error_reporter.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_error_reporter.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_error_reporter.cc'
@@ -1474,13 +1849,6 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_stri
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_string.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_string.o
 
-$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.cc
-	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.cc'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.cc
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_time.o
-
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/micro_utils.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_utils.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/micro_utils.cc'
 	@mkdir -p $(@D)
@@ -1502,26 +1870,19 @@ $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_micro_allocator.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_micro_allocator.o
 
-$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.cc
-	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.cc'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.cc
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/recording_simple_memory_allocator.o
-
-$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.cc
-	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.cc'
-	@mkdir -p $(@D)
-	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.cc
-CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.d
-OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/simple_memory_allocator.o
-
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.cc'
 	@mkdir -p $(@D)
 	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.cc
 CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.d
 OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/system_setup.o
+
+$(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/test_helper_custom_ops.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/test_helper_custom_ops.cc
+	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/test_helper_custom_ops.cc'
+	@mkdir -p $(@D)
+	$(ECHO)$(CXX) $(CXXFLAGS) -c -o $@ $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/test_helper_custom_ops.cc
+CXXDEPS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/test_helper_custom_ops.d
+OBJS += $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/test_helper_custom_ops.o
 
 $(OUTPUT_DIR)/sdk/util/third_party/tflite-micro/tensorflow/lite/micro/test_helpers.o: $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/test_helpers.cc
 	@echo 'Building $(SDK_PATH)/util/third_party/tflite-micro/tensorflow/lite/micro/test_helpers.cc'
@@ -1630,5 +1991,5 @@ OBJS += $(OUTPUT_DIR)/project/tflite_micro_hello_world.o
 
 # Automatically-generated Simplicity Studio Metadata
 # Please do not edit or delete these lines!
-# SIMPLICITY_STUDIO_METADATA=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END_SIMPLICITY_STUDIO_METADATA
+# SIMPLICITY_STUDIO_METADATA=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=END_SIMPLICITY_STUDIO_METADATA
 # END OF METADATA
