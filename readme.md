@@ -1,4 +1,20 @@
-# TensorFlow Lite for Microcontrollers examples for Silicon Labs Devices
+# \[Deprecation Notice\]
+
+> **This repository is deprecated and is no longer actively maintained.**
+
+This project has been replaced by a newer repository and should not be used for new development.  
+Please use the new repository instead:
+
+**New repository:** [Machine learning applications](https://github.com/SiliconLabsSoftware/machine_learning_applications/) 
+
+## What this means
+- This repository will no longer receive updates, bug fixes, or new features.
+- It is being retained for historical reference only.
+- Any future development and maintenance will take place in the new repository.
+
+***
+
+# \[DEPRECATED\] TensorFlow Lite for Microcontrollers examples for Silicon Labs Devices
 
 TensorFlow Lite for Microcontrollers is a framework designed for running machine learning models on microcontrollers.
 
